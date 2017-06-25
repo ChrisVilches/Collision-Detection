@@ -1,0 +1,2 @@
+# Detección de colisiones
+
