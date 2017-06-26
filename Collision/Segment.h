@@ -15,6 +15,7 @@ namespace Collision
 		Point intersectionPoint(Segment s);
 		Segment(Point, Point);
 		bool intersects(Segment);
+		bool insideSquare(Point bottomLeftCorner, double side);
 		friend bool operator==(const Segment&, const Segment&);
 	};
 

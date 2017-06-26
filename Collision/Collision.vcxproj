@@ -114,11 +114,13 @@
     <ClInclude Include="LinearDetection.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Segment.h" />
+    <ClInclude Include="QuadTreeDetection.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LinearDetection.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Segment.cpp" />
+    <ClCompile Include="QuadTreeDetection.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
