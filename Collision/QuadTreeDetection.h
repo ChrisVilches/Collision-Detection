@@ -2,7 +2,7 @@
 #include <vector>
 #include "ICollisionDetection.h"
 #include "Segment.h"
-
+#include "Square.h"
 
 namespace Collision
 {
@@ -10,21 +10,15 @@ namespace Collision
 	struct QuadTreeNode {
 		QuadTreeNode* child[4];
 		std::vector<Segment> segments;
-		QuadTreeNode()
+		QuadTreeNode() : child { NULL, NULL, NULL, NULL }
 		{
-			child[0] = NULL;
-			child[1] = NULL;
-			child[2] = NULL;
-			child[3] = NULL;
 		}
 	};
 
-
 	class QuadTreeDetection : public ICollisionDetection {		
 		QuadTreeNode* root;
-		void divide(QuadTreeNode* node, Point squarePt, double side);
-		Point squareRange;
-		double sideSquareRange;
+		void divide(QuadTreeNode* node, Square square);
+		Square squareRange;
 	public:
 		QuadTreeDetection(std::vector<Segment>&);
 		std::pair<Segment*, Point> getIntersection(Segment);

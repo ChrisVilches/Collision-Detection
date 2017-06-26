@@ -32,12 +32,6 @@ namespace Collision
 	}
 
 
-	bool Segment::insideSquare(Point bottomLeftCorner, double side) {
-		return this->first.insideSquare(bottomLeftCorner, side)
-			&& this->second.insideSquare(bottomLeftCorner, side);
-	}
-
-
 	Point Segment::intersectionPoint(Segment s) {
 
 		double dx1 = this->second.x - this->first.x;

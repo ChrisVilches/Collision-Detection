@@ -11,15 +11,7 @@ namespace Collision
 	Point::Point() : x{ 0 }, y{ 0 } {
 
 	}
-
-	bool Point::insideSquare(Point bottomLeftCorner, double side) {
-		return
-			bottomLeftCorner.y <= y &&
-			y <= bottomLeftCorner.y + side &&
-			bottomLeftCorner.x <= x &&
-			x <= bottomLeftCorner.x + side;
-	}
-
+	
 	double distance(const Point& p, const Point& q) {
 		return sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
 	}

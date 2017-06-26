@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../Collision/Segment.h"
 #include "../Collision/Point.h"
+#include "../Collision/Square.h"
 #include <cmath>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -94,23 +95,6 @@ namespace CollisionTest
 			Segment e(Point(0, 2), Point(2, 0));
 			Segment f(Point(0.5, 0), Point(0.5, 1));
 			Assert::IsTrue(e.intersectionPoint(f) == Point(0.5, 1.5));
-		}
-
-		TEST_METHOD(Segment_InsideSquare)
-		{
-			Segment a(Point(5, -10), Point(5, 10));
-			Segment b(Point(0, 0), Point(5, 5));
-			Segment c(Point(1, 5), Point(-5.6, 97));
-
-			Assert::IsTrue(a.insideSquare(Point(0, -10), 20));
-			Assert::IsFalse(a.insideSquare(Point(0, -10.0000000001), 20));
-
-			Assert::IsTrue(b.insideSquare(Point(0, 0), 5));
-			Assert::IsFalse(b.insideSquare(Point(0, 0), 4.9999999));
-
-			Assert::IsTrue(c.insideSquare(Point(-5.6, 5), 92));
-			Assert::IsFalse(c.insideSquare(Point(-5.59999, 5), 92));
-
 		}
 
 

@@ -2,31 +2,24 @@
 #include <algorithm>
 #include <limits>
 #include <functional>
+#include "Square.h"
 
 
 namespace Collision
 {
 
-	void QuadTreeDetection::divide(QuadTreeNode* node, Point squarePt, double side) {
+	void QuadTreeDetection::divide(QuadTreeNode* node, Square square) {
 		
 		if (node == NULL)
 			return;
-
-		double halfSide = side / 2;
-
-		Point squarePts[4] = { squarePt, squarePt, squarePt, squarePt };
-
-		squarePts[1].x += halfSide;
-		squarePts[2].y += halfSide;
-		squarePts[3].x += halfSide;
-		squarePts[3].y += halfSide;
 
 		std::vector<Segment> add[4];		
 
 		for (Segment seg : node->segments) {	
 
 			for (int i = 0; i < 4; i++) {
-				if (seg.insideSquare(squarePts[i], halfSide)) 
+
+				if(square.getQuadrant(i).containsSegment(seg))
 					add[i].push_back(seg);
 			}
 		}
@@ -45,13 +38,13 @@ namespace Collision
 
 		for (int i = 0; i < 4; i++)
 		{			
-			divide(node->child[i], squarePts[i], halfSide);
+			divide(node->child[i], square.getQuadrant(i));
 		}
 	}
 
 
 
-	QuadTreeDetection::QuadTreeDetection(std::vector<Segment>& allSegments) {
+	QuadTreeDetection::QuadTreeDetection(std::vector<Segment>& allSegments) : squareRange(Point(0, 0), 0) {
 
 		root = new QuadTreeNode();
 		root->segments = allSegments;
@@ -72,16 +65,15 @@ namespace Collision
 			maxx = std::max(maxx, seg.second.x);
 		}
 		
-		squareRange = Point(minx, miny);
-		sideSquareRange = std::max(maxx - minx, maxy - miny);
-		divide(root, squareRange, sideSquareRange);
+		squareRange = Square(Point(minx, miny), std::max(maxx - minx, maxy - miny));
+		divide(root, squareRange);
 	}
 
 
 
 	std::pair<Segment*, Point> QuadTreeDetection::getIntersection(Segment query) {
 		
-		std::function<void(QuadTreeNode* root, Point squarePt, double side)> traverse;
+		std::function<void(QuadTreeNode* root, Square square)> traverse;
 
 		Point& startPoint = query.first;
 		Point intersectionPoint;
@@ -90,11 +82,11 @@ namespace Collision
 		Segment* segmentIntersection = NULL;
 
 		traverse = [&query, &traverse, &intersectionPoint, &segmentIntersection, &startPoint, &minDist, &closest]
-		(QuadTreeNode* node, Point squarePt, double side) {
+		(QuadTreeNode* node, Square square) {
 
 			if (node == NULL) return;
 
-			if (query.first.insideSquare(squarePt, side) || query.second.insideSquare(squarePt, side)) {
+			if (square.containsPoint(query.first) || square.containsPoint(query.second)) {
 				// Test against current node's segments
 				for (unsigned int i = 0; i < node->segments.size(); i++) {
 
@@ -111,20 +103,13 @@ namespace Collision
 				}
 			} 
 
-			double halfSide = side / 2;
-
-			Point squarePts[4]{ squarePt, squarePt, squarePt, squarePt };
-			squarePts[1].x += halfSide;
-			squarePts[2].y += halfSide;
-			squarePts[3].x += halfSide;
-			squarePts[3].y += halfSide;
 
 			for (int i = 0; i < 4; i++) {
-				traverse(node->child[i], squarePts[i], halfSide);
+				traverse(node->child[i], square.getQuadrant(i));
 			}			
 		};
 
-		traverse(root, squareRange, sideSquareRange);			
+		traverse(root, squareRange);			
 
 		return std::make_pair(segmentIntersection, closest);
 	}
