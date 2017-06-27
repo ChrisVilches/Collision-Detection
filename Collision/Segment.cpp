@@ -10,6 +10,10 @@ namespace Collision
 
 	}
 
+	Segment::Segment() : first(), second() {
+
+	}
+
 	bool Segment::onSegment(Point p, Point q, Point r) {
 		if (q.x <= std::max(p.x, r.x) && q.x >= std::min(p.x, r.x) &&
 			q.y <= std::max(p.y, r.y) && q.y >= std::min(p.y, r.y))
@@ -19,6 +23,10 @@ namespace Collision
 
 	bool operator==(const Segment& s, const Segment& t) {
 		return s.first == t.first && s.second == t.second;
+	}
+
+	bool operator<(const Segment& s, const Segment& t) {
+		return (s.first < t.first) || (s.first == t.first && s.second < t.second);
 	}
 
 

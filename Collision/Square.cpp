@@ -26,13 +26,13 @@ namespace Collision
 			ret.bottomLeftPoint.y += ret.sideLength;
 			break;
 		default:
-			throw std::invalid_argument("invalid quadrant value");
+			throw std::invalid_argument("invalid quadrant index");
 		}
 		return ret;
 	}
 	
 
-	bool Square::containsPoint(Point point) {
+	bool Square::contains(Point point) {
 		return
 			bottomLeftPoint.y <= point.y &&
 			point.y <= bottomLeftPoint.y + sideLength &&
@@ -40,8 +40,20 @@ namespace Collision
 			point.x <= bottomLeftPoint.x + sideLength;
 	}
 
-	bool Square::containsSegment(Segment segment) {
-		return containsPoint(segment.first) && containsPoint(segment.second);
+	bool Square::contains(Segment segment) {
+		return contains(segment.first) && contains(segment.second);
+	}
+	
+	bool Square::intersects(Segment segment) {
+
+		double x = bottomLeftPoint.x;
+		double y = bottomLeftPoint.y;
+
+		return contains(segment.first) || contains(segment.second) ||
+			Segment(Point(x, y), Point(x + sideLength, y)).intersects(segment) ||
+			Segment(Point(x, y), Point(x, y + sideLength)).intersects(segment) ||
+			Segment(Point(x, y + sideLength), Point(x + sideLength, y + sideLength)).intersects(segment) ||
+			Segment(Point(x + sideLength, y), Point(x + sideLength, y + sideLength)).intersects(segment);
 	}
 
 	Square::~Square()

@@ -3,7 +3,6 @@
 #include <vector>
 #include <cstddef>
 
-
 namespace Collision
 {
 
@@ -23,6 +22,7 @@ namespace Collision
 			if (allSegments[i].intersects(query)) {
 
 				intersectionPoint = allSegments[i].intersectionPoint(query);
+				
 				double dist = distance(startPoint, intersectionPoint);
 				if (dist < minDist) {
 					minDist = dist;
@@ -31,6 +31,7 @@ namespace Collision
 				}
 			}
 		}
+
 		return std::make_pair(segmentIntersection, closest);
 	}
 

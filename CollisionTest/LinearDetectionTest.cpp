@@ -53,6 +53,35 @@ namespace CollisionTest
 			Assert::IsTrue(result2.second == Point(2, 5));
 		}
 
+
+		TEST_METHOD(LinearDetection_YesIntersection_Many)
+		{
+
+			std::vector<Segment> segments;
+			for (int i = 0; i < 100; i++) {
+				for (int j = 0; j < 100; j++) {
+					segments.push_back(Segment(Point(j, i), Point(j + 1, i + 1)));
+				}
+			}
+			LinearDetection ld(segments);
+
+			auto result = ld.getIntersection(Segment(Point(0, 0.5), Point(0.5, 0)));
+			Assert::IsTrue(*result.first == Segment(Point(0, 0), Point(1, 1)));
+			Assert::IsTrue(result.second.x == 0.25);
+			Assert::IsTrue(result.second.y == 0.25);
+
+			auto result2 = ld.getIntersection(Segment(Point(8.315, 8.63), Point(10, 12)));
+			Assert::IsTrue(*result2.first == Segment(Point(8, 9), Point(9, 10)));
+			Assert::IsTrue(std::abs(result2.second.x - 9) < 0.00001);
+			Assert::IsTrue(std::abs(result2.second.y - 10) < 0.00001);
+
+			auto result3 = ld.getIntersection(Segment(Point(69.8, 64.9), Point(70.2, 65.1)));
+			Assert::IsTrue(*result3.first == Segment(Point(69, 64), Point(70, 65)));
+			Assert::IsTrue(std::abs(result3.second.x - 70) < 0.00001);
+			Assert::IsTrue(std::abs(result3.second.y - 65) < 0.00001);
+		}
+
+
 		TEST_METHOD(LinearDetection_YesIntersectionSlope)
 		{
 			std::vector<Segment> segments;
@@ -65,5 +94,26 @@ namespace CollisionTest
 			Assert::IsTrue(std::abs(result.second.x - 2.58333) < 0.00001);
 			Assert::IsTrue(std::abs(result.second.y - 2.91667) < 0.00001);
 		}
+
+
+		TEST_METHOD(LinearDetection_YesIntersection_Time)
+		{
+
+			std::vector<Segment> segments;
+
+			for (int i = 0; i < 100; i++) {
+				for (int j = 0; j < 100; j++) {
+					segments.push_back(Segment(Point(j, i), Point(j + 1, i + 1)));
+				}
+			}
+			LinearDetection ld(segments);
+
+			for (int i = 0; i < 600; i++) {
+				ld.getIntersection(Segment(Point(0, 0.5), Point(0.5, 0)));
+			}
+
+		}
+
+
 	};
 }

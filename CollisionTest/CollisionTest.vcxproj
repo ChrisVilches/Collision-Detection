@@ -155,6 +155,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ICollisionDetectionTest.cpp" />
     <ClCompile Include="LinearDetectionTest.cpp" />
     <ClCompile Include="SegmentTest.cpp" />
     <ClCompile Include="SquareTest.cpp" />

@@ -14,8 +14,10 @@ namespace Collision
 		Point second;
 		Point intersectionPoint(Segment s);
 		Segment(Point, Point);
+		Segment();
 		bool intersects(Segment);
 		friend bool operator==(const Segment&, const Segment&);
+		friend bool operator<(const Segment&, const Segment&);
 	};
 
 }

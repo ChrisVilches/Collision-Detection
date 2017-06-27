@@ -13,8 +13,9 @@ namespace Collision
 		Square getQuadrant(int num);
 		Square(Point, double);
 		~Square();
-		bool containsPoint(Point);
-		bool Square::containsSegment(Segment);
+		bool contains(Point);
+		bool contains(Segment);
+		bool intersects(Segment);
 	};
 }
 

@@ -21,14 +21,14 @@ namespace CollisionTest
 			Segment b(Point(0, 0), Point(5, 5));
 			Segment c(Point(1, 5), Point(-5.6, 97));
 
-			Assert::IsTrue(Square(Point(0, -10), 20).containsSegment(a));
-			Assert::IsFalse(Square(Point(0, -10.0000000001), 20).containsSegment(a));
+			Assert::IsTrue(Square(Point(0, -10), 20).contains(a));
+			Assert::IsFalse(Square(Point(0, -10.0000000001), 20).contains(a));
 
-			Assert::IsTrue(Square(Point(0, 0), 5).containsSegment(b));
-			Assert::IsFalse(Square(Point(0, 0), 4.9999999).containsSegment(b));
+			Assert::IsTrue(Square(Point(0, 0), 5).contains(b));
+			Assert::IsFalse(Square(Point(0, 0), 4.9999999).contains(b));
 
-			Assert::IsTrue(Square(Point(-5.6, 5), 92).containsSegment(c));
-			Assert::IsFalse(Square(Point(-5.59999, 5), 92).containsSegment(c));
+			Assert::IsTrue(Square(Point(-5.6, 5), 92).contains(c));
+			Assert::IsFalse(Square(Point(-5.59999, 5), 92).contains(c));
 		}
 
 		TEST_METHOD(Square_QuadrantWrongArgument)

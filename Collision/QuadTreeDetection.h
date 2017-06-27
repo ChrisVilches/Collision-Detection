@@ -16,9 +16,18 @@ namespace Collision
 	};
 
 	class QuadTreeDetection : public ICollisionDetection {		
-		QuadTreeNode* root;
-		void divide(QuadTreeNode* node, Square square);
+
+		// Global data for recursive call
+		Point queryIntersectionPoint;
+		double queryMinDist;
+		Point queryClosest;
+		Segment* querySegmentIntersection;
+		Segment query;
+		void QuadTreeDetection::traverse(QuadTreeNode* node, Square square);
+		QuadTreeNode* root = NULL;
 		Square squareRange;
+		
+
 	public:
 		QuadTreeDetection(std::vector<Segment>&);
 		std::pair<Segment*, Point> getIntersection(Segment);
