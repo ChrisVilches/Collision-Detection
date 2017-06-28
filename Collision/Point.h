@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ostream>
+
 namespace Collision
 {
 	class Point {
@@ -11,6 +13,7 @@ namespace Collision
 		friend double distance(const Point&, const Point&);
 		friend bool operator<(const Point&, const Point&);
 		friend bool operator==(const Point&, const Point&);
+		friend std::ostream& operator<<(std::ostream&, const Point&);
 	};
 
 }

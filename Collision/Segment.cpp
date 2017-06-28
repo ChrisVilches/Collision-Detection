@@ -14,6 +14,10 @@ namespace Collision
 
 	}
 
+	std::ostream& operator<<(std::ostream &os, const Segment& s) {
+		return os << s.first << " ---> " << s.second;
+	}
+
 	bool Segment::onSegment(Point p, Point q, Point r) {
 		if (q.x <= std::max(p.x, r.x) && q.x >= std::min(p.x, r.x) &&
 			q.y <= std::max(p.y, r.y) && q.y >= std::min(p.y, r.y))

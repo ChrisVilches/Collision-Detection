@@ -12,12 +12,13 @@ namespace Collision
 	public:
 		Point first;
 		Point second;
-		Point intersectionPoint(Segment s);
+		Point intersectionPoint(Segment);
 		Segment(Point, Point);
 		Segment();
 		bool intersects(Segment);
 		friend bool operator==(const Segment&, const Segment&);
 		friend bool operator<(const Segment&, const Segment&);
+		friend std::ostream& operator<<(std::ostream&, const Segment&);
 	};
 
 }

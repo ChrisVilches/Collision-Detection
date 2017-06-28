@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../Collision/QuadTreeDetection.h"
-#include <sstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Collision;
@@ -194,7 +193,79 @@ namespace CollisionTest
 		}
 
 
+		TEST_METHOD(QuadTreeDetection_CountNodes1)
+		{
+			std::vector<Segment> segments;			
+			segments.push_back(Segment(Point(0, 0), Point(10, 9.9)));
+			segments.push_back(Segment(Point(0, 10), Point(10, 20)));			
+			segments.push_back(Segment(Point(10, 0), Point(20, 10)));
+			segments.push_back(Segment(Point(10, 10), Point(19.9, 20)));
+			QuadTreeDetection qt(segments);
+			Assert::IsTrue(qt.countNodes() == 5);
+		}
 
+		TEST_METHOD(QuadTreeDetection_CountNodes2)
+		{
+			std::vector<Segment> segments;
+			segments.push_back(Segment(Point(0, 0), Point(10, 9.9)));
+			segments.push_back(Segment(Point(0, 10), Point(9.9, 19.9)));
+			segments.push_back(Segment(Point(10, 0), Point(19.9, 9.9)));
+			segments.push_back(Segment(Point(10, 10), Point(19.9, 19.9)));
+			segments.push_back(Segment(Point(10, 10), Point(15, 15)));
+			segments.push_back(Segment(Point(16, 16), Point(19.9, 20)));
+			QuadTreeDetection qt(segments);
+			Assert::IsTrue(qt.countNodes() == 7);
+		}
+
+		TEST_METHOD(QuadTreeDetection_CountNodes3)
+		{
+			std::vector<Segment> segments;
+			segments.push_back(Segment(Point(0, 0), Point(10, 9.9)));
+			segments.push_back(Segment(Point(0, 10), Point(9.9, 19.9)));
+			segments.push_back(Segment(Point(10, 0), Point(19.9, 9.9)));
+			segments.push_back(Segment(Point(10, 10), Point(19.9, 19.9)));
+			segments.push_back(Segment(Point(10, 10), Point(14.9, 14.9)));
+			segments.push_back(Segment(Point(15, 15), Point(16, 16)));
+			segments.push_back(Segment(Point(16, 16), Point(17, 17)));
+			segments.push_back(Segment(Point(18, 18), Point(19, 19)));
+			segments.push_back(Segment(Point(19, 19), Point(20, 20)));
+			QuadTreeDetection qt(segments);
+			Assert::IsTrue(qt.countNodes() == 11);
+		}
+
+		TEST_METHOD(QuadTreeDetection_CountNodes4)
+		{
+			std::vector<Segment> segments;
+			segments.push_back(Segment(Point(0, 0), Point(0, 10)));
+			segments.push_back(Segment(Point(1, 0), Point(1, 10)));
+			segments.push_back(Segment(Point(2, 0), Point(2, 10)));
+			segments.push_back(Segment(Point(3, 0), Point(3, 10)));
+			segments.push_back(Segment(Point(4, 0), Point(4, 10)));
+			segments.push_back(Segment(Point(5, 0), Point(5, 10)));
+			segments.push_back(Segment(Point(6, 0), Point(6, 10)));
+			segments.push_back(Segment(Point(7, 0), Point(7, 10)));
+			segments.push_back(Segment(Point(8, 0), Point(8, 10)));
+			segments.push_back(Segment(Point(9, 0), Point(9, 10)));			
+			QuadTreeDetection qt(segments);
+			Assert::IsTrue(qt.countNodes() == 1);
+		}
+
+		TEST_METHOD(QuadTreeDetection_CountNodes5)
+		{
+			std::vector<Segment> segments;
+			segments.push_back(Segment(Point(0, 0), Point(10, 9.9)));
+			segments.push_back(Segment(Point(0, 10), Point(9.9, 19.9)));
+			segments.push_back(Segment(Point(10, 0), Point(19.9, 9.9)));
+			segments.push_back(Segment(Point(10, 10), Point(19.9, 19.9)));
+			segments.push_back(Segment(Point(10, 10), Point(14.9, 14.9)));
+			segments.push_back(Segment(Point(15, 15), Point(16, 16)));
+			segments.push_back(Segment(Point(16, 16), Point(17, 17)));
+			segments.push_back(Segment(Point(18, 18), Point(19, 19)));
+			segments.push_back(Segment(Point(19, 19), Point(20, 20)));
+			segments.push_back(Segment(Point(9, 11), Point(8, 12)));
+			QuadTreeDetection qt(segments);
+			Assert::IsTrue(qt.countNodes() == 13);
+		}
 
 	};
 }

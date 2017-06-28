@@ -9,6 +9,10 @@ namespace Collision
 	{
 	}
 
+	std::ostream& operator<<(std::ostream &os, const Square& s) {
+		return os << "(" << s.bottomLeftPoint << ", " << s.sideLength << ")";
+	}
+
 	Square Square::getQuadrant(int num) {
 		Square ret = *this;
 		ret.sideLength /= 2;

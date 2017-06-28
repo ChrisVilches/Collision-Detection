@@ -32,7 +32,8 @@ namespace Collision
 		QuadTreeDetection(std::vector<Segment>&);
 		std::pair<Segment*, Point> getIntersection(Segment);
 		~QuadTreeDetection();
-		int countTotalSegments();
+		long countTotalSegments();
+		long countNodes();
 	};
 
 }

@@ -16,6 +16,9 @@ namespace Collision
 		bool contains(Point);
 		bool contains(Segment);
 		bool intersects(Segment);
+		friend std::ostream& operator<<(std::ostream&, const Square&);
+
+
 	};
 }
 

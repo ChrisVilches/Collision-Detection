@@ -8,7 +8,7 @@ namespace Collision
 {
 
 	QuadTreeDetection::QuadTreeDetection(std::vector<Segment>& allSegments) : squareRange(Point(0, 0), 0) {
-		
+
 		root = new QuadTreeNode();
 
 		double miny = std::numeric_limits<double>::max();
@@ -46,13 +46,12 @@ namespace Collision
 			}
 			if (!added) {
 				node->segments.push_back(segment);
-			}			
+			}
 		};
 
 		for (const Segment& seg : allSegments) {			
 			addToTree(seg, root, squareRange);
-		}
-		
+		}		
 	}
 
 
@@ -67,13 +66,9 @@ namespace Collision
 			return;
 
 		unsigned int size = node->segments.size();
-		for (unsigned int i = 0; i < size; i++) {
-
-			
+		for (unsigned int i = 0; i < size; i++) {			
 			if (node->segments[i].intersects(query)) {
-
 				queryIntersectionPoint = node->segments[i].intersectionPoint(query);
-
 				double dist = distance(query.first, queryIntersectionPoint);
 				if (dist < queryMinDist) {
 					queryMinDist = dist;
@@ -102,13 +97,13 @@ namespace Collision
 
 
 
-	int QuadTreeDetection::countTotalSegments() {
+	long QuadTreeDetection::countTotalSegments() {
 
-		std::function<int(QuadTreeNode*)> count;
-		count = [&count](QuadTreeNode* node)->int {
+		std::function<long(QuadTreeNode*)> count;
+		count = [&count](QuadTreeNode* node)->long {
 			if (node == NULL)
 				return 0;	
-			return node->segments.size() + 
+			return (long)node->segments.size() + 
 				count(node->child[0]) +
 				count(node->child[1]) +
 				count(node->child[2]) +
@@ -118,6 +113,23 @@ namespace Collision
 		return count(root);
 	}
 
+
+	long QuadTreeDetection::countNodes() {
+
+		std::function<long(QuadTreeNode*)> count;
+		count = [&count](QuadTreeNode* node)->long {
+			if (node == NULL)
+				return 0;
+			return 1 +
+				count(node->child[0]) +
+				count(node->child[1]) +
+				count(node->child[2]) +
+				count(node->child[3]);
+		};
+		
+		return count(root);
+
+	}
 
 
 	QuadTreeDetection::~QuadTreeDetection() {
