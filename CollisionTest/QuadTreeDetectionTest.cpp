@@ -147,6 +147,22 @@ namespace CollisionTest
 			}
 		}
 
+		TEST_METHOD(QuadTreeDetection_YesIntersection_Time3)
+		{
+
+			std::vector<Segment> segments;
+
+			for (int i = 0; i < 100; i++) {
+				for (int j = 0; j < 100; j++) {
+					segments.push_back(Segment(Point(j, i), Point(j + 1, i + 1)));
+				}
+			}
+			QuadTreeDetection qt(segments);
+
+			for (int i = 0; i < 1000; i++) {
+				qt.getIntersection(Segment(Point(0.5, 0.5), Point(97.8, 97.6)));
+			}
+		}
 
 
 		TEST_METHOD(QuadTreeDetection_DoesntCrossLine)
