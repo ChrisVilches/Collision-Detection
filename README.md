@@ -1,7 +1,7 @@
 # Detección de colisiones
 
-Dado un conjunto de segmentos, se tiene otro segmento que se considera una consulta, con la cual se debe buscar con que segmento intersecta del conjunto. Consulta hecha en orden `O(logN)` en el caso promedio. Podría no intersectar con ningún segmento también.
+Given a segment set, there's also another segment considered a query, which must be used to determine which segment from the set it intersects with. Query done in an average time of `O(logN)`. It could not intersect with any segment from the set.
 
-En la ilustración, los segmentos negros corresponden al conjunto donde se realiza la búsqueda, y el segmento naranja es la consulta. En tiempo logaritmico se obtiene el punto solido naranjo, el cual representa la posición en la que quedaría un punto que se intenta desplazar desde el origen del segmento consulta hacia el final (en sentido de la flecha).
+In the figure below, black segments represent the search space where the query is performed on, and the orange segment represents the query. In logarithmic time, the solid dot is obtained, which represents the position where a point moving from the origin to its end would collide.
 
-![alt text](ejemplo.png "Ejemplo")
+![alt text](example.png "Example")
