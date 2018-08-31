@@ -1,4 +1,4 @@
-# Detección de colisiones
+# Collision Detection
 
 Given a segment set, there's also another segment considered a query, which must be used to determine which segment from the set it intersects with. Query done in an average time of `O(logN)`. It could not intersect with any segment from the set.
 
